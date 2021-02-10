@@ -1,0 +1,40 @@
+$header-size: 64px;
+$header-size-mobile: 48px;
+
+$layout-margin: 0 180px;
+
+
+$breakPoints: (
+	mobile: (
+		start: null,
+		end: "411px",
+	),
+	mobile-large: (
+		start: "411px",
+		end: "767px",
+	),
+	tablet: (
+		start: "768px",
+		end: "1024px",
+	),
+	desktop: (
+		start: "1025px",
+		end: "1600px",
+	),
+	desktop-large: (
+		start: "1601px",
+		end: null,
+	),
+	until-mobile: (
+		start: null,
+		end: "767px",
+	),
+	until-tablet: (
+		start: null,
+		end: "1024px",
+	),
+	until-desktop: (
+		start: null,
+		end: "1600px",
+	),
+);

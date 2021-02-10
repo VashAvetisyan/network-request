@@ -1,0 +1,19 @@
+@import '~style/_root';
+
+.app-header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #aaa;
+    box-sizing: #ddd;
+    height: $header-size;
+    display: flex;
+    align-items: center;
+    justify-content:center ;
+
+    &__title{
+        font-size: 30px;
+        
+    }
+}

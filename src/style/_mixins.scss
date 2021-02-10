@@ -1,0 +1,24 @@
+@mixin media($breakpoint) {
+	$value: map-get($breakPoints, $breakpoint);
+
+	@if $value != null {
+		$start: map-get($value, start);
+		$end: map-get($value, end);
+
+		@if $start==null {
+			@media (max-width: $end) {
+				@content;
+			}
+		} @else if $end==null {
+			@media (min-width: $start) {
+				@content;
+			}
+		} @else {
+			@media (min-width: $start) and (max-width: $end) {
+				@content;
+			}
+		}
+	} @else {
+		@warn "Invalid breakpoint `#{$breakpoint}`.";
+	}
+}
