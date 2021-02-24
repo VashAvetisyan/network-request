@@ -1,10 +1,10 @@
 class Service{
     constructor(){
-        this.baseUrl = "https://jsonplaceholder.typicode.com"
+        this.baseUrl = "https://react-learn-a974f-default-rtdb.firebaseio.com"
     }
 
     _request = (method, url, data = null) => {
-        return fetch(`${this.baseUrl}${url}`, {
+        return fetch(`${this.baseUrl}${url}.json`, {
             method,
             headers: data ? { 'Content-Type': 'application/json'} : {},
             body: data ? JSON.stringify(data) : null
@@ -19,7 +19,7 @@ class Service{
     }
 
     getPosts = (start, limit) => {
-        return this._request('GET', `/posts?_start=${start}&_limit=${limit}&_delay=8000`)
+        return this._request('GET', `/posts?_start=${start}&_limit=${limit}&_delay=3000`)
     }
 
     getAllPosts = () => {
