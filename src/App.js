@@ -1,17 +1,19 @@
-import React from 'react'
+import React, { Component, createContext, useContext } from 'react'
+import { BrowserRouter } from 'react-router-dom'
 
-import Layout from 'components/Layout/Layout'
 import Header from 'components/Header/Header'
-import Posts from 'containers/Posts/Posts'
-
+import AppRoutes from 'routes/AppRoutes'
+import AppContextProvaider from 'context/AppContextProvaider'
 
 function App() {
     return (
         <div className="App">
-            <Header />
-            <Layout >
-                <Posts />
-            </Layout>
+            <AppContextProvaider>
+                <BrowserRouter>
+                    <Header />
+                    <AppRoutes />
+                </BrowserRouter>
+            </AppContextProvaider>
         </div>
     );
 }

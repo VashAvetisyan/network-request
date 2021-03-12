@@ -1,0 +1,9 @@
+.app-nav-link{
+    text-decoration: none;
+    color: unset;
+    
+    &--active{
+        color: rgba(226, 44, 44, 0.932);
+        font-size:30px;
+    }
+}

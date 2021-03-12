@@ -1,0 +1,8 @@
+.app-link{
+    text-decoration: none;
+    color: unset;
+            
+    &:hover{
+        transform: scale(1.08);
+    }
+}

@@ -1,22 +1,68 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types';
 
-import './Post.scss'
+import Link from 'components/Link/Link';
 
-const Post = ({post, className} ) => {
+import Button from '@material-ui/core/Button';
+import EditIcon from '@material-ui/icons/Edit';
+
+import './Post.scss'
+import { AppContext } from 'context/AppContext';
+
+const Post = ({
+    post,
+    className,
+    link = false,
+    edit = () => { },
+    remove = () => { }
+}) => {
+    const context = useContext(AppContext)
+
+    const postClassName = `app-post ${className}`
+
+    const removeHandler = (e) => {
+        e.preventDefault()
+        remove()
+    }
+
+    const Wrapper = ({ children }) => {
+        return link ? (
+            <Link className={postClassName} to={`/posts/${post.id}`}>
+                {context.state.user && (
+                    <Button variant="contained" color="primary" onClick={removeHandler} >
+                        <span>Remove</span>
+                    </Button>
+                )}
+                {children}
+            </Link>
+        ) : (
+            <div className={postClassName}>
+                <Button variant="contained" color="primary" onClick={edit}>
+                    <EditIcon />
+                    <span>Edit</span>
+                </Button>
+                {children}
+            </div>
+        )
+    }
+
     return (
-        <div className={`app-post ${className}`}>
+        <Wrapper>
             <p className="app-post__title">{post.title}</p>
             <p className="app-post__body">{post.body}</p>
-        </div>
+        </Wrapper>
     )
 }
 
 Post.protoType = {
-    userId: PropTypes.number,
-    title: PropTypes.string,
-    body: PropTypes.string,
-
+    post: PropTypes.shape({
+        userId: PropTypes.number,
+        title: PropTypes.string,
+        body: PropTypes.string,
+    }),
+    isLink: PropTypes.bool,
+    edit: PropTypes.func,
+    remove: PropTypes.func,
 }
 
 export default Post

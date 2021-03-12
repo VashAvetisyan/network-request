@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import 'firebase/database';
+import 'firebase/auth'
 import firebaseConfig from './firebaseConfig';
 
 class FbService {
@@ -17,8 +18,6 @@ class FbService {
     }
 
     getPosts = async (startAt = 0, endAt = 8) => {
-        console.log('startAt', startAt)
-        console.log('endAt', endAt)
         const res = await firebase.database()
             .ref('posts')
             .orderByKey()
@@ -66,7 +65,7 @@ class FbService {
         const lastItemJson = res.toJSON()
         const lastItem = Object.values(lastItemJson)[0];
         const { id } = lastItem;
-    
+
         const newItem = {
             ...postData,
             id: id + 1
@@ -77,7 +76,22 @@ class FbService {
             .set(newItem)
         return newItem;
     }
-}
 
+    fromResToUser = (res) =>  {
+        const { uid, email, displayName, photoURL } = res.user
+        return { uid, email, displayName, photoURL };
+    }
+
+    login = async (creadetials) => {
+        const res = await firebase.auth().signInWithEmailAndPassword(creadetials.email, creadetials.password)
+        return this.fromResToUser(res)
+    }
+
+    signup = async (creadetials) => {
+        const res = await firebase.auth().createUserWithEmailAndPassword(creadetials.email, creadetials.password)
+        return this.fromResToUser(res)
+    }
+
+}
 const fbService = new FbService()
 export default fbService

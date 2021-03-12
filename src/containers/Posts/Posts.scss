@@ -1,3 +1,10 @@
+.app-loding{
+    text-align: center;
+    padding: 30px;
+    font-size: 30px;
+}
+
+
 .app-posts{
     display: flex;
     justify-content: center;
@@ -9,18 +16,19 @@
         width: 100%;
         display: grid;
         grid-template-columns: auto auto auto;
-
+        background: #5694bd;
+        
         &__post{
             margin: 12px;
         }
-
-       
     }
     &__buttons{
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
+        text-align: center;
+        
 
         button{
             padding: 10px;
