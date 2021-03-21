@@ -2,9 +2,10 @@ import React, { useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 
 import Modal from '@material-ui/core/Modal';
-import { Button } from '@material-ui/core';
+import Button from 'components/Button/Button'
 
 import './PostModal.scss'
+import PostModalInput from 'components/PostModalInput/PostModalInput';
 
 const PostModal = ({
     isOpen,
@@ -15,14 +16,6 @@ const PostModal = ({
     onClose,
     buttonTitle
 }) => {
-    const inputRef = useRef()
-
-    useEffect(() => {
-        if (inputRef.current) {
-            inputRef.current.focus()
-        }
-    }, [inputRef])
-
     return (
         <Modal
             className="post-modal"
@@ -30,25 +23,24 @@ const PostModal = ({
             onClose={onClose}
         >
             <div className="post-modal__block">
-                <h1>Tiele</h1>
-                <input
+                <h1 className="post-modal__block__title">Title</h1>
+                <PostModalInput
                     name="titleValue"
                     value={titleValue}
                     type="text"
                     className="post-modal__block__input"
+                    placeholder="Change Title"
                     onChange={changeValue}
-                    ref={inputRef}
                 />
-                <h1>Body</h1>
-                <input
+                <h1 className="post-modal__block__title">Body</h1>
+                <PostModalInput
                     name="bodyValue"
                     value={bodyValue}
+                    placeholder="Change Body"
                     className="post-modal__block__input"
                     onChange={changeValue}
                 />
                 <Button
-                    variant="contained"
-                    color="primary"
                     onClick={action}
                 >{buttonTitle}</Button>
             </div>

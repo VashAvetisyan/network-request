@@ -6,17 +6,20 @@
     &__block {
         width: 550px;
         height: 350px;
-        background: #fff;
+        background: #b8b5ff;
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding: 40px;
+
+        &__title{
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+        }
 
         &__input {
-            border: 2px solid #ccc;
-            border-radius: 25px;
-            margin: 40px 0 30px;
-            text-align: center;
-            padding: 10px 100px;
+            margin:20px  0;
         }
     }
 }
