@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import fbService from 'api/fbService';
 
@@ -6,13 +7,14 @@ import Input from 'components/Input/Input'
 import Button from 'components/Button/Button'
 import ErrorMessage from 'components/ErrorMassage/ErrorMessage';
 
-import {AppContext} from 'context/AppContext';
-import actionTypes from 'context/contextTypes'
+import { AppContext } from 'context/AppContext';
+import actionTypes from 'context/actionTypes'
 
 import './Login.scss'
 
 const Login = () => {
     const context = useContext(AppContext)
+    const history = useHistory()
     const [loading, setLoading] = useState(false)
     const [credentials, setCredentials] = useState({
         email: '',
@@ -36,15 +38,18 @@ const Login = () => {
     }
 
     const loginHandler = async () => {
-        try{
+        try {
             setLoading(true)
-            const user = await fbService.login(credentials)
+            const user = await fbService.userService.login(credentials)
             context.dispatch({ type: actionTypes.SET_USER, payload: { user } })
-        } catch(err){
+            localStorage.setItem("user", JSON.stringify(user))
+
+            history.push("/profile")
+        } catch (err) {
             setErrorState({
                 emailError: err.message
             })
-        } finally{
+        } finally {
             setLoading(false)
         }
     }
@@ -58,7 +63,7 @@ const Login = () => {
                 className="app-auth-login__input"
                 loading={loading}
             />
-            <ErrorMessage text={errorState.emailError}/>
+            <ErrorMessage text={errorState.emailError} />
             <Input
                 value={credentials.password}
                 onChange={(e) => changeHandler('password', e.target.value)}
@@ -66,9 +71,9 @@ const Login = () => {
                 className="app-auth-login__input"
                 loading={loading}
             />
-             <ErrorMessage text={errorState.passwordError}/>
-            <Button 
-                onClick={loginHandler} 
+            <ErrorMessage text={errorState.passwordError} />
+            <Button
+                onClick={loginHandler}
                 className="app-auth-login__btn"
                 loading={loading}
             >Login

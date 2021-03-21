@@ -1,0 +1,22 @@
+.post-modal{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__block {
+        width: 550px;
+        height: 350px;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &__input {
+            border: 2px solid #ccc;
+            border-radius: 25px;
+            margin: 40px 0 30px;
+            text-align: center;
+            padding: 10px 100px;
+        }
+    }
+}

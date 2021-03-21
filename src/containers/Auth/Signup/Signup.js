@@ -1,5 +1,5 @@
-
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useRef, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 
 import fbService from 'api/fbService';
 
@@ -8,15 +8,18 @@ import Button from 'components/Button/Button'
 
 import ErrorMessage from 'components/ErrorMassage/ErrorMessage';
 import { AppContext } from 'context/AppContext';
-import actionTypes from 'context/contextTypes'
+import actionTypes from 'context/actionTypes'
 
 
 import './Signup.scss'
 
 const Signup = () => {
+    const nameInputRef = useRef()
     const context = useContext(AppContext)
+    const history = useHistory()
     const [loading, setLoading] = useState(false)
     const [credentials, setCredentials] = useState({
+        name: '',
         email: '',
         password: '',
     })
@@ -25,23 +28,29 @@ const Signup = () => {
         passwordError: '',
     })
 
-    const changeHandler = (name, value) => {
+    useEffect(() => {
+        nameInputRef.current.focus()
+    }, [])
+
+    const changeHandler = (e) => {
         setErrorState({
             emailError: '',
             passwordError: ''
         })
         setCredentials({
             ...credentials,
-            [name]: value
+            [e.target.name]: e.target.value
         })
     }
 
     const handelSignup = async () => {
         try {
             setLoading(true)
-            const user = await fbService.signup(credentials)
+            const user = await fbService.userService.signup(credentials)
             console.log('user', user)
             context.dispatch({ type: actionTypes.SET_USER, payload: { user } })
+            localStorage.setItem("user", JSON.stringify(user))
+            history.push("/profile")
         } catch (err) {
             setErrorState({
                 emailError: err.message
@@ -54,16 +63,28 @@ const Signup = () => {
     return (
         <div className="app-auth-signup">
             <Input
+                name="name"
+                value={credentials.name}
+                onChange={changeHandler}
+                placeholder="Enter name"
+                className="app-auth-signup__input"
+                loading={loading}
+                inputRef={nameInputRef}
+            />
+            <ErrorMessage text={errorState.nameError} />
+            <Input
+                name="email"
                 value={credentials.email}
-                onChange={(e) => changeHandler('email', e.target.value)}
+                onChange={changeHandler}
                 placeholder="Enter email"
                 className="app-auth-signup__input"
                 loading={loading}
             />
             <ErrorMessage text={errorState.emailError} />
             <Input
+                name="password"
                 value={credentials.password}
-                onChange={(e) => changeHandler('password', e.target.value)}
+                onChange={changeHandler}
                 placeholder="Enter password"
                 className="app-auth-signup__input"
                 loading={loading}

@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 
 import Post from 'components/Post/Post'
 
-import Modal from '@material-ui/core/Modal';
-
 import './PostDetails.scss';
-import { Button } from '@material-ui/core';
 import fbService from 'api/fbService';
+import { AppContext } from 'context/AppContext';
+
+import actionTypes from "context/actionTypes";
+import PostModal from 'components/PostModal/PostModal';
 
 export class PostsDeteils extends Component {
 
@@ -20,8 +21,10 @@ export class PostsDeteils extends Component {
         }
     }
 
+    static contextType = AppContext
+
     componentDidMount() {
-        fbService.getPost(this.props.match.params.postId)
+        fbService.postService.getPost(this.props.match.params.postId)
             .then((data) => {
                 this.setState({
                     post: data,
@@ -38,19 +41,30 @@ export class PostsDeteils extends Component {
     }
 
     savePost = () => {
-        fbService.updatePost({
+        fbService.postService.updatePost({
             ...this.state.post,
             title: this.state.titleValue,
             body: this.state.bodyValue
-        }).then(res => {
-            this.setState({
-                post: {...this.state.post, title:this.state.titleValue,  body:this.state.bodyValue},
-                isEditPopupOpen: false
-            })
         })
+            .then(res => {
+                const updatedPost = {
+                    ...this.state.post,
+                    title: this.state.titleValue,
+                    body: this.state.bodyValue
+                }
+                this.setState({
+                    post: updatedPost,
+                    isEditPopupOpen: false
+                })
+                const { state: { posts } } = this.context
+                if (posts && posts.find(el => el.id === this.state.post.id)) {
+                    this.context.dispatch({ type: actionTypes.UPDATE_POST, payload: { post: updatedPost } })
+                }
+            })
     }
 
-    changeValue = (name, value) => {
+    changeValue = (e) => {
+        const { name, value } = e.target
         this.setState({
             [name]: value
         })
@@ -68,31 +82,17 @@ export class PostsDeteils extends Component {
                 <Post
                     post={this.state.post}
                     edit={this.toggleEditPopup}
-                    onClick={() => {}}
+                    onClick={() => { }}
                 />
-                <Modal
-                    open={isEditPopupOpen}
+                <PostModal
+                    action={this.savePost}
+                    bodyValue={bodyValue}
+                    titleValue={titleValue}
+                    changeValue={this.changeValue}
+                    isOpen={isEditPopupOpen}
                     onClose={this.toggleEditPopup}
-                    className="app-post-details__edit-modal"
-                >
-                    <div className="app-post-details__edit-modal__inner">
-                        <h1>Tiele</h1>
-                        <input 
-                            value={titleValue} 
-                            className="app-post-details__edit-modal__inner__input"
-                            onChange={(e) => this.changeValue('titleValue', e.target.value)}
-                        />
-                        <h1>Body</h1>
-                        <input 
-                            value={bodyValue} 
-                            className="app-post-details__edit-modal__inner__input"
-                            onChange={(e) => this.changeValue('bodyValue', e.target.value)}
-                        />
-                        <Button variant="contained" color="primary" onClick={this.savePost}>
-                            Save
-                        </Button>
-                    </div>
-                </Modal>
+                    buttonTitle="Save"
+                />
             </div>
         )
     }
