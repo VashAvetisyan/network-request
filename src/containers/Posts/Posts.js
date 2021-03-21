@@ -68,7 +68,7 @@ const Posts = ({
             loading: true
         })
         getReduxPosts(newStartAt, newStartAt + limit)
-            .then(data => {
+            .then(() => {
                 setState({
                     ...state,
                     loading: false
