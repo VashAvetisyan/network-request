@@ -601,4 +601,4 @@ const postsMockup = [
   }
 ]
 
-export default postsMockup
+export default postsMockup;

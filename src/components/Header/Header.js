@@ -4,7 +4,8 @@ import NavLink from 'components/NavLink/NavLink'
 
 import './Header.scss'
 import { AppContext } from 'context/AppContext'
-import { useLocation } from 'react-router'
+import postsMockup from 'data-mockup/postsMockup'
+
 
 const headerLink = [
     {
@@ -14,10 +15,21 @@ const headerLink = [
     {
         title: 'Posts',
         to: '/posts'
+    },
+    {
+        title: 'Todo',
+        to: '/todo'
     }
 ]
 
 const Header = () => {
+
+    useEffect(() => {
+        fetch('https://react-learn-a974f-default-rtdb.firebaseio.com/todo.json', {
+            method: 'PUT',
+            body: JSON.stringify(postsMockup)
+        })
+    }, [])
 
     const context = useContext(AppContext)
     return (

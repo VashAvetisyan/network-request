@@ -2,51 +2,53 @@ import firebase from "firebase/app";
 import 'firebase/database';
 import 'firebase/auth'
 
-class postService {
-    getAllPosts = async () => {
+class todoService {
+    getAllTodo = async () => {
         const res = await firebase.database()
-            .ref("posts")
+            .ref('todo')
             .get();
         const data = res.toJSON();
         return Object.values(data);
     }
 
-    getPosts = async (startAt, endAt) => {
+    getTodos = async (startAt, endAt) => {
+        console.log('asf')
         const res = await firebase.database()
-            .ref('posts')
+            .ref('todo')
             .orderByKey()
             .startAt(startAt.toString())
             .endAt(endAt.toString())
             .get()
         const data = res.toJSON()
+        console.log(data)
         return Object.values(data)
     }
 
-    getPost = async (id) => {
+    getTodo = async (id) => {
+        console.log(id)
         const res = await firebase.database()
-            .ref(`posts/${id}`)
+            .ref(`todo/${id}`)
             .get()
         return res.val()
     }
 
-    updatePost = async (postData) => {
-        const postRef = firebase.database().ref(`posts/${postData.id}`)
-        await postRef.update(postData)
-        const res = await postRef.get();
+    updateTodo= async (todoData) => {
+        const todoRef = firebase.database().ref(`todo/${todoData.id}`)
+        await todoRef.update(todoData)
+        const res = await todoRef.get();
         return res.val()
     }
 
-    deletePost = async (id) => {
-        console.log(id)
-        const postRef = firebase.database().ref(`posts/${id}`)
-        await postRef.remove()
+    deleteTodo = async (id) => {
+        const todoRef = firebase.database().ref(`todo/${id}`)
+        await todoRef.remove()
 
-        const posts = await this.getAllPosts()
+        const todos = await this.getAllTodo()
         await firebase
             .database()
-            .ref("posts")
+            .ref("todo")
             .set(
-                posts.map((el, index) => {
+                todos.map((el, index) => {
                     return {
                         ...el,
                         id: index,
@@ -55,9 +57,9 @@ class postService {
             );
     }
 
-    createPost = async (postData) => {
+    createTodo = async (todoData) => {
         const res = await firebase.database()
-            .ref("posts")
+            .ref("todo")
             .orderByKey()
             .limitToLast(1)
             .get();
@@ -65,14 +67,14 @@ class postService {
         const lastItem = Object.values(lastItemJson)[0];
         const { id } = lastItem;
         const newItem = {
-            ...postData,
+            ...todoData,
             id: id + 1
         }
 
         await firebase.database()
-            .ref(`posts/${id + 1}`)
+            .ref(`todo/${id + 1}`)
             .set(newItem)
         return newItem;
     }
 }
-export default new postService()
+export default new todoService()

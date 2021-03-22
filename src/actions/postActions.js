@@ -12,11 +12,10 @@ import fbService from 'api/fbService';
 export const setReduxPosts = (startAt, limit) => (dispatch) => {
     fbService.postService.getPosts(startAt, limit)
         .then(data => {
-            //this.context.dispatch({ type: actionTypes.SET_POSTS, payload: { posts: data } })
             dispatch({
                 type: reduxActionTypes.SET_POSTS,
                 payload: {
-                    posts: data
+                    posts: data,
                 }
             })
         })

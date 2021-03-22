@@ -1,0 +1,27 @@
+.app-todo{
+    padding:15px 50px 30px;
+    text-align: center;
+    border: 2px solid #7868e6;
+    border-radius: 20px;
+    background: #b8b5ff;
+    color:#333 ;
+
+    &__edit-btn{
+        margin-bottom: 15px;
+    }
+    
+    &__title{
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 8px;
+        margin-bottom: 20px;
+    }
+
+    &__edit-btn{
+        margin-top: 20px;
+    }
+
+    &__remove-btn{
+        margin-bottom: 15px;
+    }
+}

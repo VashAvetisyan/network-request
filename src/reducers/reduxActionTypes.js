@@ -2,7 +2,12 @@ const reduxActionTypes = {
     SET_POSTS: 'SET_POSTS',
     GET_MORE_POSTS: 'GET_MORE_POSTS',
     SET_POSTS_HAS_MORE: 'SET_POSTS_HAS_MORE',
-    POST_EDIR:'POST_EDIT'
+    POST_EDIR:'POST_EDIT',
+    //Todo
+    SET_TODOS: 'SET_TODOS',
+    GET_MORE_TODOS: 'GET_MORE_TODOS',
+    SET_TODOS_HAS_MORE: 'SET_TODOS_HAS_MORE',
+    TODOS_EDIR:'TODOS_EDIT'
 }
 
 export default reduxActionTypes
