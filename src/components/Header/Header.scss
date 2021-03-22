@@ -11,15 +11,21 @@
     align-items: center;
     justify-content:center ;
     z-index:99;
+    background: $header-bg;
 
     &__link{
         display: inline-block;
         margin: 12px;
         font-size: 24px;
-        color: #333;
+        color: #605f85;
 
         &:focus{
-            color: #000;
+            color:  #7876b8;
         }
+    }
+
+    &__user{
+        font-size: 24px;
+        color: #000;
     }
 }

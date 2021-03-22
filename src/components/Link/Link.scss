@@ -1,6 +1,7 @@
 .app-link{
     text-decoration: none;
     color: unset;
+    transition: 0.3s;
             
     &:hover{
         transform: scale(1.08);

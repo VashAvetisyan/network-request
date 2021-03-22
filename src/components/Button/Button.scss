@@ -1,11 +1,16 @@
 .app-button{
     width: 100%;
     padding: 10px 0;
-    background: #1E5371;
+    background: #7868e6;
     color: #fff;
     border: none;
     border-radius:5px ;
     transform: 0.3;
+    max-width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
 
     &:hover{
         opacity: 0.9;

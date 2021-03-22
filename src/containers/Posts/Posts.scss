@@ -21,17 +21,17 @@
             margin: 12px;
         }
     }
-    &__buttons{
+    &__main-btn{
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
-        text-align: center;
-        
+        text-align: center;      
+        flex-direction: column;
 
-        button{
-            padding: 10px;
-            margin: 10px;
+        &__btn{
+            margin-top: 15px;
         }
     }
+
 }

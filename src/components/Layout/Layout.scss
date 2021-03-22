@@ -1,13 +1,13 @@
 @import "~style/_root";
 
-#app-layout{
+.app-layout{
     display: flex;
     padding-top: $header-size;
-    height: 100vh;
+    background:$layout-bg;
+    min-height: 100vh;
 
     &__main {
         flex: 1;
-        background:#fff;
         margin:$layout-margin;
     }
 }

@@ -1,9 +1,10 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 import NavLink from 'components/NavLink/NavLink'
 
 import './Header.scss'
-import {AppContext}  from 'context/AppContext'
+import { AppContext } from 'context/AppContext'
+import { useLocation } from 'react-router'
 
 const headerLink = [
     {
@@ -17,6 +18,7 @@ const headerLink = [
 ]
 
 const Header = () => {
+
     const context = useContext(AppContext)
     return (
         <div className="app-header">
@@ -48,7 +50,7 @@ const Header = () => {
                     }
                 </ul>
             </nav>
-            {context.state.user ? context.state.user.uid : 'No user'}
+            {context.state.user ? context.state.user.uid :  <p className="app-header__user">No user</p>}
         </div>
     )
 }

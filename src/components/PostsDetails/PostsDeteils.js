@@ -8,6 +8,7 @@ import { AppContext } from 'context/AppContext';
 
 import actionTypes from "context/actionTypes";
 import PostModal from 'components/PostModal/PostModal';
+import Loading from 'components/Loading/Loading';
 
 export class PostsDeteils extends Component {
 
@@ -74,7 +75,9 @@ export class PostsDeteils extends Component {
         const { post, isEditPopupOpen, titleValue, bodyValue } = this.state
 
         if (!post) {
-            return <div>Loagind...</div>
+            return <div>
+                <Loading />
+            </div>
         }
 
         return (

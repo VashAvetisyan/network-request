@@ -8,6 +8,8 @@ import fbService from 'api/fbService';
 import PostModal from 'components/PostModal/PostModal';
 
 import { getReduxPosts, setPostsHasMore, setReduxPosts } from 'actions/postActions'
+import Button from 'components/Button/Button';
+import Loading from 'components/Loading/Loading';
 
 const limit = 8;
 
@@ -95,7 +97,9 @@ const Posts = ({
     //const { state: { posts } } = this.context
 
     if (!posts) {
-        return <div className="app-loding">Loagind...</div>
+        return <div className="app-loding">
+            <Loading />
+        </div>
     }
 
     return (
@@ -115,11 +119,18 @@ const Posts = ({
                             })
                         }
                     </div>
-                    <div className="app-posts__buttons">
-                        {hasMore && <button onClick={getMore} disabled={loading}>
-                            {loading ? 'Loading...' : 'Get More'}
-                        </button>}
-                        <button onClick={toggleCreateModal}>Create Post</button>
+                    <div className="app-posts__main-btn">
+                        {hasMore && <Button
+                            onClick={getMore}
+                            disabled={loading}
+                            className="app-posts__main-btn__btn"
+                        >{loading ? 'Loading...' : 'Get More'}</Button>}
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={toggleCreateModal}
+                            className="app-posts__main-btn__btn"
+                        >Create Post</Button>
                     </div>
                 </>
             ) : (

@@ -4,8 +4,8 @@ import './Layout.scss'
 
 const Layout = ({ children }) => {
     return (
-        <div id="app-layout">
-            <main id='app-layout__main'>
+        <div className="app-layout">
+            <main className='app-layout__main'>
                 {children}
             </main>
         </div>

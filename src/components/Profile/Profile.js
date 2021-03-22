@@ -4,6 +4,9 @@ import React, { useContext } from 'react'
 import { AppContext } from 'context/AppContext'
 import actionTypes from 'context/actionTypes'
 import { useHistory } from 'react-router'
+import Button from 'components/Button/Button'
+
+import './Profile.scss'
 
 const Profile = () => {
     const history = useHistory()
@@ -16,8 +19,8 @@ const Profile = () => {
     }
 
     return (
-        <div>
-            <button onClick={logoutHandler}>Logout</button>
+        <div className="app-profile">
+            <Button onClick={logoutHandler} className="app-profile__logout-btn">Logout</Button>
         </div>
     )
 }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Link from 'components/Link/Link';
 
-import Button from '@material-ui/core/Button';
+import Button from 'components/Button/Button';
 import EditIcon from '@material-ui/icons/Edit';
 
 import './Post.scss'
@@ -29,7 +29,7 @@ const Post = ({
         return link ? (
             <Link className={postClassName} to={`/posts/${post.id}`}>
                 {context.state.user && (
-                    <Button variant="contained" color="primary" onClick={removeHandler} >
+                    <Button className='app-post__remove-btn'  onClick={removeHandler} >
                         <span>Remove</span>
                     </Button>
                 )}
@@ -37,7 +37,7 @@ const Post = ({
             </Link>
         ) : (
             <div className={postClassName}>
-                <Button variant="contained" color="primary" onClick={edit}>
+                <Button onClick={edit} className='app-post__edit-btn'>
                     <EditIcon />
                     <span>Edit</span>
                 </Button>
