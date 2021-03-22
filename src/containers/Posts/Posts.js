@@ -52,10 +52,7 @@ const Posts = ({
         const { startAt } = state
         fbService.postService.deletePost(id)
             .then(() => {
-                fbService.PostService.getPosts(0, startAt !== 0 ? startAt + limit : limit)
-                    .then(res => {
-                        setReduxPosts(res)
-                    })
+                setReduxPosts(0, startAt !== 0 ? startAt + limit : limit)
             })
             .catch(err => {
                 console.log(err)
