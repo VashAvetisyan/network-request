@@ -5,7 +5,6 @@ import fbService from 'api/fbService';
 export const setReduxTodos = (startAt, limit) => (dispatch) => {
     fbService.todoService.getTodos(startAt, limit)
         .then(data => {
-            console.log(data)
             dispatch({
                 type: reduxActionTypes.SET_TODOS,
                 payload: {
@@ -18,7 +17,12 @@ export const setReduxTodos = (startAt, limit) => (dispatch) => {
 export const getReduxTodos = (startAt, limit) => (dispatch) => {
     return fbService.todoService.getTodos(startAt, limit)
         .then((data) => {
-            setTodosHasMore(data.length < limit ? false : true)
+            dispatch({
+                type: reduxActionTypes.SET_TODO_HAS_MORE,
+                payload: {
+                    todoHasMore: data.length < 9 ? false : true
+                }
+            })
             dispatch({
                 type: reduxActionTypes.GET_MORE_TODOS,
                 payload: {
@@ -28,11 +32,21 @@ export const getReduxTodos = (startAt, limit) => (dispatch) => {
         })
 }
 
-export const setTodosHasMore = (hasMore) => (dispatch) => {
+export const setTodosHasMore = (todoHasMore) => (dispatch) => {
     dispatch({
         type: reduxActionTypes.SET_TODOS_HAS_MORE,
         payload: {
-            hasMore
+            todoHasMore
+        }
+    })
+}
+
+
+export const updateToDoInList = (updateTodo) => (dispatch) => {
+    dispatch({
+        type: reduxActionTypes.UPDATE_TODO,
+        payload:{
+            todo: updateTodo
         }
     })
 }

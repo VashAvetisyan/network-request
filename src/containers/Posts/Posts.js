@@ -7,7 +7,7 @@ import './Posts.scss'
 import fbService from 'api/fbService';
 import PostModal from 'components/PostModal/PostModal';
 
-import { getReduxPosts, setPostsHasMore, setReduxPosts } from 'actions/postActions'
+import { getReduxPosts, setReduxPosts } from 'actions/postActions'
 import Button from 'components/Button/Button';
 import Loading from 'components/Loading/Loading';
 
@@ -16,7 +16,6 @@ const limit = 8;
 const Posts = ({
     posts,
     setReduxPosts,
-    setPostsHasMore,
     getReduxPosts,
     hasMore,
     history
@@ -41,7 +40,7 @@ const Posts = ({
             body: state.bodyValue,
             userId: 1
         }
-        fbService.PostService.createPost(newPost)
+        fbService.postService.createPost(newPost)
             .then(data => {
                 toggleCreateModal()
                 history.push(`/posts/${data.id}`)
@@ -67,9 +66,11 @@ const Posts = ({
             loading: true
         })
         getReduxPosts(newStartAt, newStartAt + limit)
-            .then(() => {
+            .then(data => {
+                console.log(data)
                 setState({
                     ...state,
+                    startAt: newStartAt,
                     loading: false
                 })
             })
@@ -155,8 +156,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     getReduxPosts,
-    setReduxPosts,
-    setPostsHasMore
+    setReduxPosts
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Posts)

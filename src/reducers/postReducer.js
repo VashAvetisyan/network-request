@@ -17,6 +17,16 @@ const postReducer = (state = initialState, action) => {
                 ...state,
                 posts: [...state.posts, ...action.payload.posts]
             }
+        case reduxActionTypes.UPDATE_POST:
+            return {
+                ...state,
+                posts: state.posts.map(el => {
+                    if (el.id === action.payload.post.id) {
+                        return action.payload.post
+                    }
+                    return el;
+                })
+            }
         case reduxActionTypes.SET_POSTS_HAS_MORE:
             return {
                 ...state,

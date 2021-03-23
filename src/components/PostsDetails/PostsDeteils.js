@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import Post from 'components/Post/Post'
 
 import './PostDetails.scss';
 import fbService from 'api/fbService';
-import { AppContext } from 'context/AppContext';
 
-import actionTypes from "context/actionTypes";
 import PostModal from 'components/PostModal/PostModal';
 import Loading from 'components/Loading/Loading';
+import { updatePostInList } from 'actions/postActions'
 
 export class PostsDeteils extends Component {
 
@@ -22,7 +22,6 @@ export class PostsDeteils extends Component {
         }
     }
 
-    static contextType = AppContext
 
     componentDidMount() {
         fbService.postService.getPost(this.props.match.params.postId)
@@ -57,9 +56,9 @@ export class PostsDeteils extends Component {
                     post: updatedPost,
                     isEditPopupOpen: false
                 })
-                const { state: { posts } } = this.context
+                const { posts } = this.props
                 if (posts && posts.find(el => el.id === this.state.post.id)) {
-                    this.context.dispatch({ type: actionTypes.UPDATE_POST, payload: { post: updatedPost } })
+                    this.props.updatePostInList(updatedPost)
                 }
             })
     }
@@ -101,4 +100,14 @@ export class PostsDeteils extends Component {
     }
 }
 
-export default PostsDeteils
+const mapStateToProps = (state) => {
+    return {
+        posts: state.postsData.posts
+    }
+}
+
+const mapDispatchToProps = {
+    updatePostInList
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostsDeteils)

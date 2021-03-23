@@ -3,25 +3,33 @@
     text-align: center;
     border: 2px solid #7868e6;
     border-radius: 20px;
-    background: #b8b5ff;
     color:#333 ;
+    min-height: 400px;
+    max-height: 400px;
+    transition: 0.5s;
 
-    &__edit-btn{
-        margin-bottom: 15px;
+    &__type{
+        border-bottom: 2px solid #333;
     }
-    
+
     &__title{
         font-size: 24px;
+        min-height: 250px;
+        max-height: 250px;
         font-weight: bold;
-        margin-bottom: 8px;
+        margin-top: 20px;
         margin-bottom: 20px;
     }
 
-    &__edit-btn{
-        margin-top: 20px;
+    &__completed-btn{
+        height: 40px;
+        width: 140px;
+        font-weight: 600;
     }
-
-    &__remove-btn{
-        margin-bottom: 15px;
-    }
+}
+.completed{
+    background: #b8b5ff;
+}
+.notCompleted{
+    background:#888cb3;
 }

@@ -37,7 +37,6 @@ class postService {
     }
 
     deletePost = async (id) => {
-        console.log(id)
         const postRef = firebase.database().ref(`posts/${id}`)
         await postRef.remove()
 

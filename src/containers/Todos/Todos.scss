@@ -1,37 +1,35 @@
-.app-loding{
+.app-loding {
     text-align: center;
     padding: 30px;
     font-size: 30px;
 }
 
-
-.app-todos{
+.app-todos {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     flex-direction: column;
-    
-    &__container{
+
+    &__container {
         width: 100%;
         display: grid;
         grid-template-columns: auto auto auto;
-        
-        &__todos{
+
+        &__todos {
             margin: 12px;
         }
     }
-    &__main-btn{
+    &__main-btn {
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
-        text-align: center;      
+        text-align: center;
         flex-direction: column;
 
-        &__btn{
+        &__btn {
             margin-top: 15px;
         }
     }
-
 }

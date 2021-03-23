@@ -1,11 +1,9 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import NavLink from 'components/NavLink/NavLink'
 
 import './Header.scss'
 import { AppContext } from 'context/AppContext'
-import postsMockup from 'data-mockup/postsMockup'
-
 
 const headerLink = [
     {
@@ -24,16 +22,26 @@ const headerLink = [
 
 const Header = () => {
 
+    const [headerBackground, setHeaderBackground] = useState(false)
+
+    const scrollHeader = () => {
+        if(window.scrollY > 60){
+            setHeaderBackground(true)
+        }else{
+            setHeaderBackground(false)
+        }
+    }
+
     useEffect(() => {
-        fetch('https://react-learn-a974f-default-rtdb.firebaseio.com/todo.json', {
-            method: 'PUT',
-            body: JSON.stringify(postsMockup)
-        })
+        window.addEventListener("scroll", scrollHeader)
+        return () => {
+            window.removeEventListener("scroll", scrollHeader)
+        }
     }, [])
 
     const context = useContext(AppContext)
     return (
-        <div className="app-header">
+        <div className={`app-header${headerBackground ? ' app-header--scroll' : ''}`}>
             <nav>
                 <ul>
                     {headerLink.map(el => {
