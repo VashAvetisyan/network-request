@@ -47,15 +47,14 @@ const Signup = () => {
         try {
             setLoading(true)
             const user = await fbService.userService.signup(credentials)
-            console.log('user', user)
             context.dispatch({ type: actionTypes.SET_USER, payload: { user } })
             localStorage.setItem("user", JSON.stringify(user))
+            setLoading(false)
             history.push("/profile")
         } catch (err) {
             setErrorState({
                 emailError: err.message
             })
-        } finally {
             setLoading(false)
         }
     }

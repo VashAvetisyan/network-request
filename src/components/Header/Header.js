@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import NavLink from 'components/NavLink/NavLink'
 
 import './Header.scss'
 import { AppContext } from 'context/AppContext'
-import { useLocation } from 'react-router'
 
 const headerLink = [
     {
@@ -14,14 +13,35 @@ const headerLink = [
     {
         title: 'Posts',
         to: '/posts'
+    },
+    {
+        title: 'Todo',
+        to: '/todo'
     }
 ]
 
 const Header = () => {
 
+    const [headerBackground, setHeaderBackground] = useState(false)
+
+    const scrollHeader = () => {
+        if(window.scrollY > 60){
+            setHeaderBackground(true)
+        }else{
+            setHeaderBackground(false)
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener("scroll", scrollHeader)
+        return () => {
+            window.removeEventListener("scroll", scrollHeader)
+        }
+    }, [])
+
     const context = useContext(AppContext)
     return (
-        <div className="app-header">
+        <div className={`app-header${headerBackground ? ' app-header--scroll' : ''}`}>
             <nav>
                 <ul>
                     {headerLink.map(el => {
